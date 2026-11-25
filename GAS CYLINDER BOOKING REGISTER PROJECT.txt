@@ -1,0 +1,96 @@
+#include <stdio.h>
+#define MAX 50
+
+int main()
+{
+    int sno[MAX], count = 0, choice, i, searchSno, found;
+    char name[MAX][50], date[MAX][15];
+    long long consumerNo[MAX];
+
+    while (1)
+    {
+        printf("\n--- GAS CYLINDER BOOKING REGISTER ---\n");
+        printf("1. Add Booking\n");
+        printf("2. View All Bookings\n");
+        printf("3. Search Booking by S.No.\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+        case 1:
+            if (count == MAX)
+            {
+                printf("Booking register is full.\n");
+            }
+            else
+            {
+                sno[count] = count + 1;
+
+                printf("Enter consumer name (one word): ");
+                scanf("%49s", name[count]);
+
+                printf("Enter consumer number: ");
+                scanf("%lld", &consumerNo[count]);
+
+                printf("Enter booking date (DD/MM/YYYY): ");
+                scanf("%14s", date[count]);
+
+                count++;
+                printf("Booking added successfully!\n");
+            }
+            break;
+
+        case 2:
+            if (count == 0)
+            {
+                printf("No bookings available.\n");
+            }
+            else
+            {
+                printf("\nS.No.  Consumer Name  Consumer Number  Booking Date\n");
+                for (i = 0; i < count; i++)
+                {
+                    printf("%-6d %-14s %-15lld %s\n",
+                           sno[i], name[i], consumerNo[i], date[i]);
+                }
+            }
+            break;
+
+        case 3:
+            printf("Enter S.No. to search: ");
+            scanf("%d", &searchSno);
+            found = 0;
+
+            for (i = 0; i < count; i++)
+            {
+                if (sno[i] == searchSno)
+                {
+                    printf("\nBooking Found!\n");
+                    printf("S.No.: %d\n", sno[i]);
+                    printf("Consumer Name: %s\n", name[i]);
+                    printf("Consumer Number: %lld\n", consumerNo[i]);
+                    printf("Booking Date: %s\n", date[i]);
+                    found = 1;
+                    break;
+                }
+            }
+
+            if (found == 0)
+            {
+                printf("Booking not found.\n");
+            }
+            break;
+
+        case 4:
+            printf("Exiting program.\n");
+            return 0;
+
+        default:
+            printf("Invalid choice. Please try again.\n");
+        }
+    }
+
+    return 0;
+}
